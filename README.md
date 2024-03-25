@@ -6,6 +6,7 @@
 * Breaking down RAPID-A compartments, this repo step-by-step goes through how our design and taken measures aid the generalizability concerns, with the Lahaina-Maras case as the case study.
 
 
+# 
 * Cloning the repo in your system:
 ```bash 
 cd /path/to/directory
