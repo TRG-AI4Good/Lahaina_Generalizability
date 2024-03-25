@@ -6,14 +6,6 @@
 * Breaking down RAPID-A compartments, this repo step-by-step goes through how our design and taken measures aid the generalizability concerns, with the Lahaina-Maras case as the case study.
 
 
- What is RAPID-A? RAPID-A is deep mearning-based framework for rapid post-event damage assessment from satellite imagery with the main incentive being effective transferrability across urban textures and hazards, as real-world scenarios demand that.
-
-## We took the opporutniy of the recent 2023 Kahramanmaras earthquake, as a rich damage dataset, and the 2023 Maui wildfire incident to build RAPID-A.
-
-## This repo on its own, is a complete piopeline for such damage assessments, yet, this repo mainly serves reproducing reaseacrh article 'Rapid Computer-Vision-based Post-Event Assessment Tools for Natural Disasters: Enhancing Generalizability' (DOI), aimed at adding generalizability to rapid post-event damage assessment through satellite imagery.
-
-###Breaking down RAPID-A compartments, this repo step-by-step goes through how our design and taken measures aid the generalizabilty concernss, with the Lahaina-Maras case as the cvase study.
-
 * Cloning the repo in your system:
 ```bash 
 cd /path/to/directory
