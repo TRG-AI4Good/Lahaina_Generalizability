@@ -6,7 +6,7 @@
 * Cloning the repo in your system:
 ```bash 
 cd /path/to/directory
-git clone [repository_url](https://github.com/TRG-AI4Good/RAPID_A)
+git clone https://github.com/TRG-AI4Good/RAPID_A
 ```
 *  Then, define a directory (variable "cwd") to save outcomes, and pick a state (variable "State"). Regardless of your area of interest, metadata must be collected state-by-state.  
 *  First, import the InventoryV1 class from Biv and create an instance of it. Doing this, two subfolders, "Raw data" and "Transitory data," are formed.  
