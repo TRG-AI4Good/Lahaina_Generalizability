@@ -4,7 +4,7 @@
 * We took the opportunity of the recent 2023 Kahramanmaras earthquake, as a rich damage dataset, and the 2023 Maui wildfire incident to build RAPID-A.
 * This repo, on its own, is a complete pipeline for such damage assessments. However, this repo mainly serves to reproduce the research article "Rapid Computer-Vision-based Post-Event Assessment Tools for Natural Disasters: Enhancing Generalizability" (DOI), aimed at adding generalizability to rapid post-event damage assessment through satellite imagery.
 * To tun RAPID-A, you need to have 5 data: 1- Blocks that is the geometry parquet file of your case study divided after taking 640-by-640 pixel images from it. 2- The inventory, you can mix NSI and FEMA inventories as outline in the paper to build such inventory for anywhere inside the U.S., 3- Pre- and Post-event images for those blocks 4- (optional) damage labels for each building inside the inventory, and 5- NASA ARIA map for the incident of your choice as a tiff file, the code itself will figure that out across blocsk.
-* * RAPID-A outputs two damage lables, C (fully or partially collapsed), and D (aerially observable non-collaps damages). Any building of inventory not categorized as those is deemed as no-damage.
+* RAPID-A outputs two damage lables, C (fully or partially collapsed), and D (aerially observable non-collaps damages). Any building of inventory not categorized as those is deemed as no-damage.
 * Breaking down RAPID-A compartments, this repo step-by-step goes through how our design and taken measures aid the generalizability concerns, with the Lahaina-Maras case as the case study.
 
 
