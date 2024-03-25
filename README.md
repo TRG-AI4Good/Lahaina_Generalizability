@@ -19,3 +19,15 @@ Open ROC_Curve_Results.ipynb In Colab:
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
+# What is RAPID-A?
+## RAPID-A is deep mearning-based framework for rapid post-event damage assessment from satellite imagery. The idea was to effectively transfer satellite-image-based post evenbt assessment across sites and hazard types.
+## Accordingly, RAPID-A is build upon 1- Channel augemntattion, 2- Deep ensemble learning, and 3- Test-Time augmenttaion strategies to accomplish that.
+## The frameowrk has definite inputs, wnd given those, it can be used elsewhere.
+##Inputs are: 
+* a set of six deep segmenttaion models with various channel augmenttaions; herein, those are provided with models trained on Turkiye earthquake sequence of 2023
+* The Building inventory; herein, we use the mixture of FEMA and NSI, but it is not built within this repo and only the completed inventory is inputted
+*  The region divided into 640-by-640 pixel images, wtih geometries stored in a parquet file (you can find an example when downlloading the data)
+*  The NASA ARIA maps of the incident, always follows shortly after major events
+*  If labels are proviusded as wel, it will return the accutrcay too
+
+# RAPID-A hgas three cartegories, fully-partially collapsed buildings (C), buildings with observable aerial damages (D) and no-damage biuildings are the ones which are not identified as C or D
