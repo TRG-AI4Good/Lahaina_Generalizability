@@ -15,8 +15,7 @@ git clone https://github.com/TRG-AI4Good/RAPID_A.git
 * In case you want to give it a try at Google Colab
 
 Open ROC_Curve_Results.ipynb In Colab: 
-<a target="_blank" href="https://colab.research.google.com/github.com/TRG-AI4Good/RAPID_A/blob/main/Run.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/TRG-AI4Good/RAPID_A/blob/main/Run.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
-
 
