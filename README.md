@@ -1,9 +1,9 @@
 # RAPID_A
 
-## What is RAPID-A? RAPID-A is a deep learning-based framework for rapid post-event damage assessment from satellite imagery, with the main incentive being effective transferability across urban textures and hazards, as real-world scenarios demand.
-## We took the opportunity of the recent 2023 Kahramanmaras earthquake, as a rich damage dataset, and the 2023 Maui wildfire incident to build RAPID-A.
-## This repo, on its own, is a complete pipeline for such damage assessments. However, this repo mainly serves to reproduce the research article "Rapid Computer-Vision-based Post-Event Assessment Tools for Natural Disasters: Enhancing Generalizability" (DOI), aimed at adding generalizability to rapid post-event damage assessment through satellite imagery.
-## Breaking down RAPID-A compartments, this repo step-by-step goes through how our design and taken measures aid the generalizability concerns, with the Lahaina-Maras case as the case study.
+### What is RAPID-A? RAPID-A is a deep learning-based framework for rapid post-event damage assessment from satellite imagery, with the main incentive being effective transferability across urban textures and hazards, as real-world scenarios demand.
+### We took the opportunity of the recent 2023 Kahramanmaras earthquake, as a rich damage dataset, and the 2023 Maui wildfire incident to build RAPID-A.
+### This repo, on its own, is a complete pipeline for such damage assessments. However, this repo mainly serves to reproduce the research article "Rapid Computer-Vision-based Post-Event Assessment Tools for Natural Disasters: Enhancing Generalizability" (DOI), aimed at adding generalizability to rapid post-event damage assessment through satellite imagery.
+### Breaking down RAPID-A compartments, this repo step-by-step goes through how our design and taken measures aid the generalizability concerns, with the Lahaina-Maras case as the case study.
 
 
  What is RAPID-A? RAPID-A is deep mearning-based framework for rapid post-event damage assessment from satellite imagery with the main incentive being effective transferrability across urban textures and hazards, as real-world scenarios demand that.
