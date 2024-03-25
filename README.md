@@ -1,7 +1,18 @@
 # RAPID_A
-### This code serve as the re-production tool for the article 'Rapid Computer-Vision-based Post-Event Assessment Tools for Natural Disasters: Enhancing Generalizability' (DOI), aimed at adding generalizability to rapid post-event damage assessment through satellite imagery.
 
-### The code offers step-by-step data generation, channel augmentation, ensemble learning, and test-time augmentation strategies outlined in the paper to evaluate their impacts on adding generalizability to rapid post-event damage assessment through satellite imagery.
+## What is RAPID-A? RAPID-A is a deep learning-based framework for rapid post-event damage assessment from satellite imagery, with the main incentive being effective transferability across urban textures and hazards, as real-world scenarios demand.
+##We took the opportunity of the recent 2023 Kahramanmaras earthquake, as a rich damage dataset, and the 2023 Maui wildfire incident to build RAPID-A.
+##This repo, on its own, is a complete pipeline for such damage assessments. However, this repo mainly serves to reproduce the research article "Rapid Computer-Vision-based Post-Event Assessment Tools for Natural Disasters: Enhancing Generalizability" (DOI), aimed at adding generalizability to rapid post-event damage assessment through satellite imagery.
+##Breaking down RAPID-A compartments, this repo step-by-step goes through how our design and taken measures aid the generalizability concerns, with the Lahaina-Maras case as the case study.
+
+
+ What is RAPID-A? RAPID-A is deep mearning-based framework for rapid post-event damage assessment from satellite imagery with the main incentive being effective transferrability across urban textures and hazards, as real-world scenarios demand that.
+
+## We took the opporutniy of the recent 2023 Kahramanmaras earthquake, as a rich damage dataset, and the 2023 Maui wildfire incident to build RAPID-A.
+
+## This repo on its own, is a complete piopeline for such damage assessments, yet, this repo mainly serves reproducing reaseacrh article 'Rapid Computer-Vision-based Post-Event Assessment Tools for Natural Disasters: Enhancing Generalizability' (DOI), aimed at adding generalizability to rapid post-event damage assessment through satellite imagery.
+
+###Breaking down RAPID-A compartments, this repo step-by-step goes through how our design and taken measures aid the generalizabilty concernss, with the Lahaina-Maras case as the cvase study.
 
 * Cloning the repo in your system:
 ```bash 
@@ -20,7 +31,7 @@ Open ROC_Curve_Results.ipynb In Colab:
 </a>
 
 # What is RAPID-A?
-## RAPID-A is deep mearning-based framework for rapid post-event damage assessment from satellite imagery. The idea was to effectively transfer satellite-image-based post evenbt assessment across sites and hazard types.
+
 ## Accordingly, RAPID-A is build upon 1- Channel augemntattion, 2- Deep ensemble learning, and 3- Test-Time augmenttaion strategies to accomplish that.
 ## The frameowrk has definite inputs, wnd given those, it can be used elsewhere.
 ##Inputs are: 
