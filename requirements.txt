@@ -1,0 +1,22 @@
+patool
+numpy
+pillow
+matplotlib
+geopandas
+pandas
+max-ard
+rasterio
+torch --index-url https://download.pytorch.org/whl/cu118d
+torchvision --index-url https://download.pytorch.org/whl/cu118d
+torchaudio --index-url https://download.pytorch.org/whl/cu118
+tensorflow==2.13.0
+scikit-learn
+scikit-image
+albumentations
+urllib
+urllib3
+ipywidgets 
+widgetsnbextension 
+pandas-profiling
+pyarrow
+tabulate
