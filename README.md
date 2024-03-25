@@ -12,5 +12,5 @@ git clone https://github.com/TRG-AI4Good/RAPID_A.git
 * Still, making sure the requirements.txt libraries are installed is needed.
 * Since for the "general-purpose" CD model we are using building on codes by El. Amin et. al. (https://github.com/vbhavank/Unstructured-change-detection-using-CNN), the Tensorflow librray must be at version 2.13.0; as noted in the requirements file (un-installation of a prior TF version might be needed.
 
-
-
+* In case you want to give it a try at Google Colab
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/karpathy/llama2.c/blob/master/run.ipynb)
