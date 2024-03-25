@@ -132,7 +132,7 @@ class RAPID_A():
 # Googlw (post-event) image
     def ARIA_maps(self):
         """
-        This function extrcats ARIA maps from the main ARIA map, herein "Aria.tiff" taken from 
+        This function extrcats ARIA maps from the main ARIA map, herein "ARIA.tiff" taken from 
         NASA, and then glue them horizontally to the Google (post-event) images and save it within
         the directory folder ./Data/G_Plus_ARIA.
             
@@ -150,8 +150,8 @@ class RAPID_A():
         img = img.convert('L')
 
         # Save the image as PNG
-        img.save(cwd_data+'AriaB.png')
-        im=Image.open(cwd_data+'AriaB.png')
+        img.save(cwd_data+'ARIAB.png')
+        im=Image.open(cwd_data+'ARIAB.png')
 
 
         # List the Block boundary parquet files
@@ -228,7 +228,7 @@ class RAPID_A():
             im_g=Image.open(cwd_data+'/M_G_Concat/'+str(io+1)+'.png')
             [width,height]=[im_g.width,im_g.height]
             im_g = im_g.crop((int(width*0.5),height*0, width*1, 1*height))
-            self.get_concat_h(im_g,im2).save(cwd_data+'/G_Plus_Aria/'+str(io+1)+'.png')
+            self.get_concat_h(im_g,im2).save(cwd_data+'/G_Plus_ARIA/'+str(io+1)+'.png')
             io+=1
 
     '''
@@ -1053,7 +1053,7 @@ class RAPID_A():
                 os.mkdir(Source+'/Results/'+Model+'/Mask_Results_'+damage_class+'/')
             except:
                 pass
-        Models=['Model_2E_Eff','Model_2E_eff_cd','Model_2E_eff_aria','Model_2E_Tra','Model_2E_Tra_CD','Model_2E_Tra_Aria']
+        Models=['Model_2E_Eff','Model_2E_eff_cd','Model_2E_eff_ARIA','Model_2E_Tra','Model_2E_Tra_CD','Model_2E_Tra_ARIA']
         
         for damage_class in Damage_Classes:
             F=os.listdir(Source+'/Results/'+Models[0]+'/Mask_Results_'+damage_class+'/')
