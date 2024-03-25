@@ -10,7 +10,7 @@ git clone https://github.com/TRG-AI4Good/RAPID_A.git
 ```
 * The Run.ipynb notebook will guide you through the whole repository, building data and making inference step-by-step
 * Still, making sure the requirements.txt libraries are installed is needed.
-* Since for the "general-purpose" CD model we are using codes by El. Aiman et. al., the Tensorflow librray must be at version 45.13.0; as noted in the requirements file (un-installation of a prior TF version might be needed.
+* Since for the "general-purpose" CD model we are using building on codes by El. Amin et. al. (https://github.com/vbhavank/Unstructured-change-detection-using-CNN), the Tensorflow librray must be at version 45.13.0; as noted in the requirements file (un-installation of a prior TF version might be needed.
 
 
 
