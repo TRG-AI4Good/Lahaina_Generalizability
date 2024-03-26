@@ -73,7 +73,7 @@ class RAPID_A():
             pass
         else:
     # Download required files
-            url = 'https://www.dropbox.com/scl/fi/inskxhzh5upjsobz7x1v4/RAPID_A.rar?rlkey=u10fyvdhwctfmuhb66866oll6&id=1&dl=1'
+            url = 'https://www.dropbox.com/scl/fi/e1vx4wpqo3inz3uid3fz8/RAPID_A.rar?rlkey=ggh17ohxap7vbab8soywdbzmi&id=1&dl=1'
             destination = 'Files.rar'
             import urllib
             #Some functions to handle downloads
@@ -854,8 +854,8 @@ class RAPID_A():
 
     def Poly_to_Matching(self,Models,T):
         for Model in Models:
-            Source=self.cwd
-            cwd=self.cwd
+            Source=cwd
+            cwd=cwd
             CSVS_Source=Source+'/Data/CSVS/'
             A=gpd.read_parquet(Source+'/Results/'+Model+'/Shape_Files/D.parquet')
             B=gpd.read_parquet(Source+'/Results/'+Model+'/Shape_Files/C.parquet')
@@ -891,7 +891,7 @@ class RAPID_A():
                     except:
                         Geom1 = gpd.GeoDataFrame(pd.concat( (Geom1,Geom), ignore_index=True) )
             Sample=Geom1.copy()
-    ######### C
+        ######### C
             for i in np.arange(0,len(A),1):
                 ind=int(A['id'].iloc[i])
                 Mask=A['geometry'].iloc[i]
@@ -925,7 +925,7 @@ class RAPID_A():
                         Sample.iloc[ind,38]+=1
                     if(Overlap_R>0.99):
                         Sample.iloc[ind,42]+=1
-    # D
+        # D
             for i in np.arange(0,len(B),1):
                 ind=int(B['id'].iloc[i])
                 Mask=B['geometry'].iloc[i]
@@ -971,63 +971,94 @@ class RAPID_A():
                 z.append(str(int(A[i*2+1][0]))+'('+str(100*int(A[i*2+1][0])/len(foot))[0:4]+'%'+')')
             print(tabulate([['>10', z[0],z[1]], ['>20', z[2],z[3]], ['>30', z[4],z[5]], ['>40', z[6],z[7]],['>50', z[8],z[9]], ['>60',z[10],z[11]], ['>70', z[12],z[13]], ['>80', z[14],z[15]],['>90', z[16],z[17]]], headers=['Type','Collapsed','Possibly'], tablefmt='orgtbl'))         
 
- 
 
-            geod = Geod(ellps="WGS84")
-            Damage_Cases=['C','D']
-            #self.damages
-            print('\n Accuracy estimation:')
-            Foot=gpd.read_parquet(cwd+'/Data/Inventory.parquet')
-            SQ=np.where(Foot.columns=='SQMETERS')[0][0]
-            Foot[['PC','PD']]=0
-            ff=len(Foot.columns)
-            #Foot[Foot['Damage']==np.nan]['Damage']=0
-            for kk2 in range(len(Damage_Cases)):
-                PP=gpd.read_parquet(cwd+'/Results/'+Model+'/Shape_files/'+Damage_Cases[kk2]+'.parquet')
-                Geom=unary_union(PP['geometry'])
-                for KL in range(len(Foot)):
-                    Foot.iloc[KL,SQ]=abs(geod.geometry_area_perimeter(Foot['geometry'].iloc[KL])[0])
-                    Foot.iloc[KL,ff-2+kk2]=(make_valid(Foot['geometry'].iloc[KL]).intersection(Geom)).area/(Foot['geometry'].iloc[KL].area)
-                    
-                    #Breaking the overlap-inventory parquet to three portions
-            # one: no damage, second, damage D, thirs damage C
-            Foot.to_parquet(Source+'/Results/'+Model+'/Shape_Files/Inventory_Results.parquet')
-            Inv_overlap=Foot.copy()
-            Label_gpd=gpd.read_parquet(cwd+'/Data/Geom_Labels.parquet')
-            Z=Inv_overlap[Inv_overlap['PD']<T].copy()
-            Z=Z[Z['PC']<T].copy()
-            AP=Inv_overlap.drop(index=Z.index)
-            ZD=AP[AP['PC']>=T].copy()
-            AP=AP.drop(index=ZD.index)
-            ZP=AP.copy()
-            Z1=Z.copy()
-            Z2=ZP.copy()
-            Z3=ZD.copy()
+            # Generate sample data (replace these with your actual data)
+            data1 = np.asarray([A[0][0],A[2][0],A[4][0],A[6][0],A[8][0],A[10][0],A[12][0],A[14][0],A[16][0]])
+            data2 = np.asarray([A[1][0],A[3][0],A[5][0],A[7][0],A[9][0],A[11][0],A[13][0],A[15][0],A[17][0]])
 
-            # Binary damage detection problem
-            Z1['Label']=0
-            Z2['Label']=1
-            Z3['Label']=1
-            LLL=pd.concat((Z1,pd.concat((Z2,Z3))))
-            LLL=LLL.merge(Label_gpd[['geometry','Label']], on='geometry')
-            Labels=LLL['Label_x'].copy()
-            Pred=LLL['Label_y'].copy()
-            Pred[Pred==2]=1
-            DF1=precision_recall_fscore_support(Pred,Labels,average='macro')
-            print(Model+"'s binary damage detection P-R-F1 scores=\n",'No damage:',str(len(Z1)),'\tDamage:',str(len(Z2)+len(Z3)))
-            print(' Prec:\t',DF1[0],'\n Recall:\t',DF1[1],'\n F1:\t',DF1[2],'\n')
+            # Fit lognormal distributions to the data
+            params1 = lognorm.fit(data1,floc=0)
+            params2 = lognorm.fit(data2,floc=0)
 
-            # Three label damage detection problem
-            Z1['Label']=0
-            Z2['Label']=1
-            Z3['Label']=2
-            LLL=pd.concat((Z1,pd.concat((Z2,Z3))))
-            LLL=LLL.merge(Label_gpd[['geometry','Label']], on='geometry')
-            Labels=LLL['Label_x'].copy()
-            Pred=LLL['Label_y'].copy()
-            DF2=precision_recall_fscore_support(Pred,Labels,average='macro')
-            print(Model+"'s damage severity detection P-R-F1 scores=\n",'D damage:',str(len(Z2)),'\tC Damage:',str(len(Z3)))
-            print(' Prec:\t',DF2[0],'\n Recall:\t',DF2[1],'\n F1:\t',DF2[2],'\n')
+
+            # Plot the PDF of the fitted distributions
+            x = np.linspace(0, max(data1.max(), data2.max())*1.5, 1000)
+            pdf1 = lognorm.pdf(x, *params1)
+            pdf1=pdf1/np.max(pdf1)
+            pdf2 = lognorm.pdf(x, *params2)
+            pdf2=pdf2/np.max(pdf2)
+            plt.plot(x, pdf1, label='Fitted Lognorm C', color='blue')
+            plt.plot(x, pdf2, label='Fitted Lognorm D', color='orange')
+
+            # Add labels and legend
+            plt.xlabel('NO. Footprints')
+            plt.ylabel('Normalized Probability Density')
+            plt.title('Fitted Lognormal Distributions, Model: '+Model)
+            plt.legend()
+
+            # Show plot
+            plt.show()
+
+            try:
+                Label_gpd=gpd.read_parquet(cwd+'/Data/Geom_Labels.parquet')
+                print('Labels are given, accuracy estimatation begins:')
+                geod = Geod(ellps="WGS84")
+                Damage_Cases=['C','D']
+                #self.damages
+                print('\n Accuracy estimation:')
+                Foot=gpd.read_parquet(cwd+'/Data/Inventory.parquet')
+                SQ=np.where(Foot.columns=='SQMETERS')[0][0]
+                Foot[['PC','PD']]=0
+                ff=len(Foot.columns)
+                #Foot[Foot['Damage']==np.nan]['Damage']=0
+                for kk2 in range(len(Damage_Cases)):
+                    PP=gpd.read_parquet(cwd+'/Results/'+Model+'/Shape_files/'+Damage_Cases[kk2]+'.parquet')
+                    Geom=unary_union(PP['geometry'])
+                    for KL in range(len(Foot)):
+                        Foot.iloc[KL,SQ]=abs(geod.geometry_area_perimeter(Foot['geometry'].iloc[KL])[0])
+                        Foot.iloc[KL,ff-2+kk2]=(make_valid(Foot['geometry'].iloc[KL]).intersection(Geom)).area/(Foot['geometry'].iloc[KL].area)
+                        
+                        #Breaking the overlap-inventory parquet to three portions
+                # one: no damage, second, damage D, thirs damage C
+                Foot.to_parquet(Source+'/Results/'+Model+'/Shape_Files/Inventory_Results.parquet')
+                Inv_overlap=Foot.copy()
+
+                Z=Inv_overlap[Inv_overlap['PD']<T].copy()
+                Z=Z[Z['PC']<T].copy()
+                AP=Inv_overlap.drop(index=Z.index)
+                ZD=AP[AP['PC']>=T].copy()
+                AP=AP.drop(index=ZD.index)
+                ZP=AP.copy()
+                Z1=Z.copy()
+                Z2=ZP.copy()
+                Z3=ZD.copy()
+
+                # Binary damage detection problem
+                Z1['Label']=0
+                Z2['Label']=1
+                Z3['Label']=1
+                LLL=pd.concat((Z1,pd.concat((Z2,Z3))))
+                LLL=LLL.merge(Label_gpd[['geometry','Label']], on='geometry')
+                Labels=LLL['Label_x'].copy()
+                Pred=LLL['Label_y'].copy()
+                Pred[Pred==2]=1
+                DF1=precision_recall_fscore_support(Pred,Labels,average='macro')
+                print(Model+"'s binary damage detection P-R-F1 scores=\n",'No damage:',str(len(Z1)),'\tDamage:',str(len(Z2)+len(Z3)))
+                print(' Prec:\t',DF1[0],'\n Recall:\t',DF1[1],'\n F1:\t',DF1[2],'\n')
+
+                # Three label damage detection problem
+                Z1['Label']=0
+                Z2['Label']=1
+                Z3['Label']=2
+                LLL=pd.concat((Z1,pd.concat((Z2,Z3))))
+                LLL=LLL.merge(Label_gpd[['geometry','Label']], on='geometry')
+                Labels=LLL['Label_x'].copy()
+                Pred=LLL['Label_y'].copy()
+                DF2=precision_recall_fscore_support(Pred,Labels,average='macro')
+                print(Model+"'s damage severity detection P-R-F1 scores=\n",'D damage:',str(len(Z2)),'\tC Damage:',str(len(Z3)))
+                print(' Prec:\t',DF2[0],'\n Recall:\t',DF2[1],'\n F1:\t',DF2[2],'\n')
+            except:
+                print('No Label is given')
 
 
         
