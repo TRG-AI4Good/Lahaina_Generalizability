@@ -101,8 +101,8 @@ class RAPID_A():
             #Building the "Data" folder within the directory to save data
             rar_file = 'Files.rar'
             destination_folder = './'
-            patoolib.extract_archive(rar_file, outdir=destination_folder)
-            shutil.move('./RAPID_A','./Data')
+            patoolib.extract_archive(rar_file, outdir=cwd)
+            shutil.move(cwd+'/RAPID_A',cwd+'/Data')
             os.remove('./Files.rar')
 
 
@@ -442,7 +442,7 @@ class RAPID_A():
             cwd_re=cwd+'/Results/'
             
             Model=Model
-            Source=cwd
+            Source=self.cwd
 
             # model names are coded, so it understands the model,
             # augmented channels, etc. from its name
@@ -854,127 +854,44 @@ class RAPID_A():
 
     def Poly_to_Matching(self,Models,T):
         for Model in Models:
-            Source=cwd
-            cwd=cwd
-            CSVS_Source=Source+'/Data/CSVS/'
-            A=gpd.read_parquet(Source+'/Results/'+Model+'/Shape_Files/D.parquet')
-            B=gpd.read_parquet(Source+'/Results/'+Model+'/Shape_Files/C.parquet')
-            F_A=Source+'FootPrints/'
-            foot=gpd.read_parquet(cwd+'/Data/Inventory.parquet')
-            foot['geometry']=foot['geometry'].buffer(0)
-            foot['centroid']=foot['geometry'].centroid
-            ID=['id', 'D0', 'P0', 'DR0', 'PR0', 'D1', 'P1', 'DR1', 'PR1', 'D2', 'P2',
-                    'DR2', 'PR2', 'D3', 'P3', 'DR3', 'PR3', 'D4', 'P4', 'DR4', 'PR4', 'D5',
-                    'P5', 'DR5', 'PR5', 'D6', 'P6', 'DR6', 'PR6', 'D7', 'P7', 'DR7', 'PR7',
-                    'D8', 'P8', 'DR8', 'PR8', 'D9', 'P9', 'DR9', 'PR9', 'D10', 'P10',
-                    'DR10', 'PR10', 'N']
-            
-            G=os.listdir(CSVS_Source)
-            for iG in np.arange(0,len(G),1):
-                if iG==0:
-                    Geom=gpd.read_parquet(CSVS_Source+G[iG])
-                    Geom['lat']=Geom.centroid.x
-                    Geom=Geom[Geom.columns[::-1]]
-                    Geom[ID]=0
-                    Geom['id']=iG+1
-                    #G[iG][G[iG].find('.')-1:G[iG].find('.')]
-                    Geom1=Geom.copy()
-                else:
-                    Geom=gpd.read_parquet(CSVS_Source+G[iG])
-                    Geom['lat']=Geom.centroid.x
-                    Geom=Geom[Geom.columns[::-1]]
-                    Geom[ID]=0
-                    Geom['id']=iG+1
-                    #G[iG][G[iG].find('.')-1:G[iG].find('.')]
-                    try:
-                        Geom1=Geom1.append(Geom)
-                    except:
-                        Geom1 = gpd.GeoDataFrame(pd.concat( (Geom1,Geom), ignore_index=True) )
-            Sample=Geom1.copy()
-        ######### C
-            for i in np.arange(0,len(A),1):
-                ind=int(A['id'].iloc[i])
-                Mask=A['geometry'].iloc[i]
-                I=(gpd.read_parquet(CSVS_Source+'Blocks_geom'+str(ind)+'.parquet')['geometry'].iloc[0])
-                L=foot[foot['centroid'].within(I)]
-                for i1 in range(len(L)):
-                    KK=L['geometry'].iloc[i1]
-                    try:
-                        Overlap_R=(KK.intersection(Mask)).area/KK.area
-                    except:
-                        Overlap_R=(make_valid(KK).intersection(make_valid(Mask))).area/KK.area
-                    if(Overlap_R>0.01):
-                        Sample.iloc[ind,4]+=1
-                    if(Overlap_R>0.1):
-                        Sample.iloc[ind,8]+=1
-                    if(Overlap_R>0.2):
-                        Sample.iloc[ind,12]+=1
-                    if(Overlap_R>0.3):
-                        Sample.iloc[ind,16]+=1
-                    if(Overlap_R>0.4):
-                        Sample.iloc[ind,20]+=1
-                    if(Overlap_R>0.5):
-                        Sample.iloc[ind,24]+=1
-                    if(Overlap_R>0.6):
-                        Sample.iloc[ind,28]+=1
-                    if(Overlap_R>0.7):
-                        Sample.iloc[ind,32]+=1
-                    if(Overlap_R>0.8):
-                        Sample.iloc[ind,36]+=1
-                    if(Overlap_R>0.9):
-                        Sample.iloc[ind,38]+=1
-                    if(Overlap_R>0.99):
-                        Sample.iloc[ind,42]+=1
-        # D
-            for i in np.arange(0,len(B),1):
-                ind=int(B['id'].iloc[i])
-                Mask=B['geometry'].iloc[i]
-                I=(gpd.read_parquet(CSVS_Source+'Blocks_geom'+str(ind)+'.parquet')['geometry'].iloc[0])
-                L=foot[foot['centroid'].within(I)]
-                for i1 in range(len(L)):
-                    KK=L['geometry'].iloc[i1]
-                    try:
-                        Overlap_R=(KK.intersection(Mask)).area/KK.area
-                    except:
-                        Overlap_R=(make_valid(KK).intersection(make_valid(Mask))).area/KK.area
-                    if(Overlap_R>0.01):
-                        Sample.iloc[ind,3]+=1
-                    if(Overlap_R>0.1):
-                        Sample.iloc[ind,7]+=1
-                    if(Overlap_R>0.2):
-                        Sample.iloc[ind,11]+=1
-                    if(Overlap_R>0.3):
-                        Sample.iloc[ind,15]+=1
-                    if(Overlap_R>0.4):
-                        Sample.iloc[ind,19]+=1
-                    if(Overlap_R>0.5):
-                        Sample.iloc[ind,23]+=1
-                    if(Overlap_R>0.6):
-                        Sample.iloc[ind,27]+=1
-                    if(Overlap_R>0.7):
-                        Sample.iloc[ind,31]+=1
-                    if(Overlap_R>0.8):
-                        Sample.iloc[ind,35]+=1
-                    if(Overlap_R>0.9):
-                        Sample.iloc[ind,39]+=1
-                    if(Overlap_R>0.99):
-                        Sample.iloc[ind,43]+=1
-            Sample.to_parquet(Source+'/Results/'+Model+'/Shape_Files/Block_RatiosT.parquet')
+            Source=self.cwd
+            cwd=self.cwd
+            geod = Geod(ellps="WGS84")
+            Damage_Cases=['C','D']
+            #self.damages
+            print('\n Accuracy estimation:')
+            Foot=gpd.read_parquet(cwd+'/Data/Inventory.parquet')
+            SQ=np.where(Foot.columns=='SQMETERS')[0][0]
+            Foot[['PC','PD']]=0
+            ff=len(Foot.columns)
+            #Foot[Foot['Damage']==np.nan]['Damage']=0
+            for kk2 in range(len(Damage_Cases)):
+                PP=gpd.read_parquet(cwd+'/Results/'+Model+'/Shape_files/'+Damage_Cases[kk2]+'.parquet')
+                Geom=unary_union(PP['geometry'])
+                for KL in range(len(Foot)):
+                    Foot.iloc[KL,SQ]=abs(geod.geometry_area_perimeter(Foot['geometry'].iloc[KL])[0])
+                    Foot.iloc[KL,ff-2+kk2]=(make_valid(Foot['geometry'].iloc[KL]).intersection(Geom)).area/(Foot['geometry'].iloc[KL].area)
+            Overlaps=[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]
+            Res=np.zeros((9,2))
+            zet=0
+            for over in Overlaps:
+                Inv_overlap=Foot.copy()
+                Z=Inv_overlap[Inv_overlap['PD']<over].copy()
+                Z=Z[Z['PC']<over].copy()
+                AP=Inv_overlap.drop(index=Z.index)
+                ZD=AP[AP['PC']>=over].copy()
+                AP=AP.drop(index=ZD.index)
+                ZP=AP.copy()
+                Res[zet,0]=len(ZP)
+                Res[zet,1]=len(ZD)
+                zet+=1
 
-
-            A=np.zeros((22,1))
-            z=[]
-            for i in range(0,11):
-                A[i*2+0]=np.sum(Sample['D'+str(i)])
-                A[i*2+1]=np.sum(Sample['P'+str(i)])
-                z.append(str(int(A[i*2+0][0]))+'('+str(100*int(A[i*2+0][0])/len(foot))[0:4]+'%'+')')
-                z.append(str(int(A[i*2+1][0]))+'('+str(100*int(A[i*2+1][0])/len(foot))[0:4]+'%'+')')
-            print(tabulate([['>10', z[0],z[1]], ['>20', z[2],z[3]], ['>30', z[4],z[5]], ['>40', z[6],z[7]],['>50', z[8],z[9]], ['>60',z[10],z[11]], ['>70', z[12],z[13]], ['>80', z[14],z[15]],['>90', z[16],z[17]]], headers=['Type','Collapsed','Possibly'], tablefmt='orgtbl'))         
+            print(tabulate([['>10', Res[0,0],Res[0,1]], ['>20', Res[1,0], Res[1,1]], ['>30', Res[2,0], Res[2,1]], ['>40', Res[3,0], Res[3,1]],['>50', Res[4,0], Res[4,1]], ['>60',Res[5,0], Res[5,1]], ['>70', Res[6,0], Res[6,1]], ['>80', Res[7,0], Res[7,1]],['>90', Res[8,0], Res[8,1]]], headers=['Overlap Threshold','C Category','D Category'], tablefmt='orgtbl'))         
 
 
             # Generate sample data (replace these with your actual data)
-            data1 = np.asarray([A[0][0],A[2][0],A[4][0],A[6][0],A[8][0],A[10][0],A[12][0],A[14][0],A[16][0]])
-            data2 = np.asarray([A[1][0],A[3][0],A[5][0],A[7][0],A[9][0],A[11][0],A[13][0],A[15][0],A[17][0]])
+            data2 = np.asarray([Res[0,0],Res[1,0],Res[2,0],Res[3,0],Res[4,0],Res[5,0],Res[6,0],Res[7,0],Res[8,0]])
+            data1 = np.asarray([Res[0,1],Res[1,1],Res[2,1],Res[3,1],Res[4,1],Res[5,1],Res[6,1],Res[7,1],Res[8,1]])
 
             # Fit lognormal distributions to the data
             params1 = lognorm.fit(data1,floc=0)
@@ -998,29 +915,11 @@ class RAPID_A():
 
             # Show plot
             plt.show()
+            Foot.to_parquet(Source+'/Results/'+Model+'/Shape_Files/Inventory_Results.parquet')
 
             try:
                 Label_gpd=gpd.read_parquet(cwd+'/Data/Geom_Labels.parquet')
                 print('Labels are given, accuracy estimatation begins:')
-                geod = Geod(ellps="WGS84")
-                Damage_Cases=['C','D']
-                #self.damages
-                print('\n Accuracy estimation:')
-                Foot=gpd.read_parquet(cwd+'/Data/Inventory.parquet')
-                SQ=np.where(Foot.columns=='SQMETERS')[0][0]
-                Foot[['PC','PD']]=0
-                ff=len(Foot.columns)
-                #Foot[Foot['Damage']==np.nan]['Damage']=0
-                for kk2 in range(len(Damage_Cases)):
-                    PP=gpd.read_parquet(cwd+'/Results/'+Model+'/Shape_files/'+Damage_Cases[kk2]+'.parquet')
-                    Geom=unary_union(PP['geometry'])
-                    for KL in range(len(Foot)):
-                        Foot.iloc[KL,SQ]=abs(geod.geometry_area_perimeter(Foot['geometry'].iloc[KL])[0])
-                        Foot.iloc[KL,ff-2+kk2]=(make_valid(Foot['geometry'].iloc[KL]).intersection(Geom)).area/(Foot['geometry'].iloc[KL].area)
-                        
-                        #Breaking the overlap-inventory parquet to three portions
-                # one: no damage, second, damage D, thirs damage C
-                Foot.to_parquet(Source+'/Results/'+Model+'/Shape_Files/Inventory_Results.parquet')
                 Inv_overlap=Foot.copy()
 
                 Z=Inv_overlap[Inv_overlap['PD']<T].copy()
@@ -1055,7 +954,7 @@ class RAPID_A():
                 Labels=LLL['Label_x'].copy()
                 Pred=LLL['Label_y'].copy()
                 DF2=precision_recall_fscore_support(Pred,Labels,average='macro')
-                print(Model+"'s damage severity detection P-R-F1 scores=\n",'D damage:',str(len(Z2)),'\tC Damage:',str(len(Z3)))
+                print(Model+"'s damage severity detection P-R-F1 scores=\n",'No:',str(len(Z1)),'D damage:',str(len(Z2)),'\tC Damage:',str(len(Z3)))
                 print(' Prec:\t',DF2[0],'\n Recall:\t',DF2[1],'\n F1:\t',DF2[2],'\n')
             except:
                 print('No Label is given')
