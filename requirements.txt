@@ -13,10 +13,11 @@ tensorflow==2.13.0
 scikit-learn
 scikit-image
 albumentations
-urllib
 urllib3
 ipywidgets 
 widgetsnbextension 
 pandas-profiling
 pyarrow
 tabulate
+chardet
+segmentation_models_pytorch
