@@ -18,12 +18,4 @@ git clone https://github.com/TRG-AI4Good/RAPID_A.git
 * Still, making sure the requirements.txt libraries are installed is needed.
 * Since for the "general-purpose" CD model we are using building on codes by El. Amin et. al. (https://github.com/vbhavank/Unstructured-change-detection-using-CNN), the Tensorflow librray must be at version 2.13.0 and Python v 3.10 to support that; as noted in the requirements file (un-installation of a prior TF version might be needed.
 
-* In case you want to give it a try at Google Colab
-
-Open ROC_Curve_Results.ipynb In Colab: 
-<a target="_blank" href="https://colab.research.google.com/github/TRG-AI4Good/RAPID_A/blob/main/Run.ipynb">
-  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
-
-* Otherwise, run Run.ipynb on your local system, guiding you through RAPID-A step by step.
 
