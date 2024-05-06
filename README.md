@@ -14,7 +14,7 @@
 cd /path/to/directory
 git clone https://github.com/TRG-AI4Good/Lahaina_Generalizability
 ```
-* 2- Execute Run.ipynb notebook that will guide you through the whole repository, building data and making inferences step-by-step.
+* 2- Go to the cloned repo directory, and execute Run.ipynb notebook that will guide you through the whole repository, building data and making inferences step-by-step.
 * Still, it is necessary to make sure the requirements.txt libraries are installed.
 * Since for the "general-purpose" CD model, we are building on codes by El. Amin et. al. (https://github.com/vbhavank/Unstructured-change-detection-using-CNN), the Tensorflow library must be at version 2.13.0 (you may change it to 2.15.0 in case of persistent package confliction) and Python v 3.10 to support that; as noted in the requirements file (un-installation of a prior TF version might be needed.
 
