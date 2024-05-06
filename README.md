@@ -12,7 +12,7 @@
 * Cloning the repo in your system:
 ```bash 
 cd /path/to/directory
-git clone https://github.com/TRG-AI4Good/RAPID_A.git
+git clone https://github.com/TRG-AI4Good/Lahaina_Generalizability
 ```
 * The Run.ipynb notebook will guide you through the whole repository, building data and making inferences step-by-step.
 * Still, it is necessary to make sure the requirements.txt libraries are installed.
